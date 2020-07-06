@@ -6,8 +6,8 @@
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
-(setq user-full-name "John Doe"
-      user-mail-address "john@doe.com")
+(setq user-full-name "Santiago"
+      user-mail-address "jsantiagoh@gmail.com")
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
@@ -21,25 +21,39 @@
 ;; font string. You generally only need these two:
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
-(setq doom-font (font-spec :family "Iosevka Term" :size 14 :weight 'light)
-      doom-variable-pitch-font (font-spec :family "Iosevka Term" :size 14))
+(setq doom-font (font-spec :family "Iosevka" :size 13 :weight 'light)
+      doom-variable-pitch-font (font-spec :family "Iosevka" :size 13))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-nord)
+(setq doom-theme 'doom-gruvbox-light)
 ;; (setq doom-theme 'zaiste)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/org/")
+(setq org-directory "~/Notes/")
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type t)
+(setq display-line-numbers-type 'relative)
 
 ;; Set bullets for ORG
-(setq org-superstar-headline-bullets-list '("❖" "⦿" "●" "◉" "⁖"))
+(setq org-superstar-headline-bullets-list '("❖" "⟫" "⨀" "⁖" "●" "◉" ))
+
+;; Autosave org mode files
+(add-hook 'org-mode-hook #'auto-save-visited-mode)
+
+;; Modeline
+;; Font for the mode-line
+(custom-set-faces!
+  '(mode-line :family "Iosevka Term" :height 0.9)
+  '(mode-line-inactive :family "Iosevka Term" :height 0.9))
+
+;; How tall the mode-line should be. It's only respected in GUI.
+;; If the actual char height is larger, it respects the actual height.
+(setq doom-modeline-height 10)
+
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
@@ -64,7 +78,7 @@
  ;; If there is more than one, they won't work right.
  '(org-agenda-files
    (quote
-    ("~/Notes/tiqets.org" "/Users/santiago/org/notes.org"))))
+    ("~/Notes/people.org" "~/Notes/tiqets.org" "/Users/santiago/org/notes.org"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
