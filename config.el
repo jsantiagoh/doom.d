@@ -39,20 +39,22 @@
 (setq display-line-numbers-type 'relative)
 
 ;; Set bullets for ORG
-(setq org-superstar-headline-bullets-list '("❖" "⟫" "⨀" "⁖" "●" "◉" ))
+(setq org-superstar-headline-bullets-list '("❖" "⨳" "⟫" "⟩" "⁖" ))
 
 ;; Autosave org mode files
 (add-hook 'org-mode-hook #'auto-save-visited-mode)
 
+(map! :leader :desc "Org Columns" "o c" #'org-columns)
+
 ;; Modeline
 ;; Font for the mode-line
-(custom-set-faces!
-  '(mode-line :family "Iosevka Term" :height 0.9)
-  '(mode-line-inactive :family "Iosevka Term" :height 0.9))
+;; (custom-set-faces!
+;;   '(mode-line :family "Iosevka Term" :height 0.9)
+;;   '(mode-line-inactive :family "Iosevka Term" :height 0.9))
 
 ;; How tall the mode-line should be. It's only respected in GUI.
 ;; If the actual char height is larger, it respects the actual height.
-(setq doom-modeline-height 10)
+;; (setq doom-modeline-height 10)
 
 
 ;; Here are some additional functions/macros that could help you configure Doom:
@@ -78,10 +80,11 @@
  ;; If there is more than one, they won't work right.
  '(org-agenda-files
    (quote
-    ("~/Notes/people.org" "~/Notes/tiqets.org" "/Users/santiago/org/notes.org"))))
+    ("~/Notes/todo.org" "~/Notes/people.org" "~/Notes/tiqets.org" "/Users/santiago/org/notes.org"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(mode-line ((t (:family "Iosevka Term" :height 0.9))))
+ '(mode-line-inactive ((t (:family "Iosevka Term" :height 0.9)))))
