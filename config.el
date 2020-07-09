@@ -21,13 +21,14 @@
 ;; font string. You generally only need these two:
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
-(setq doom-font (font-spec :family "Iosevka" :size 13 :weight 'light)
-      doom-variable-pitch-font (font-spec :family "Iosevka" :size 13))
+(setq doom-font (font-spec :family "Fira Code" :size 12 :weight 'regular)
+      doom-variable-pitch-font (font-spec :family "Fira Code" :size 12))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-gruvbox-light)
+;; (setq doom-theme 'doom-gruvbox-light)
+(setq doom-theme 'doom-one-light)
 ;; (setq doom-theme 'zaiste)
 
 ;; If you use `org' and don't want your org files in the default location below,
@@ -45,17 +46,6 @@
 (add-hook 'org-mode-hook #'auto-save-visited-mode)
 
 (map! :leader :desc "Org Columns" "o c" #'org-columns)
-
-;; Modeline
-;; Font for the mode-line
-;; (custom-set-faces!
-;;   '(mode-line :family "Iosevka Term" :height 0.9)
-;;   '(mode-line-inactive :family "Iosevka Term" :height 0.9))
-
-;; How tall the mode-line should be. It's only respected in GUI.
-;; If the actual char height is larger, it respects the actual height.
-;; (setq doom-modeline-height 10)
-
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
@@ -80,11 +70,19 @@
  ;; If there is more than one, they won't work right.
  '(org-agenda-files
    (quote
-    ("~/Notes/todo.org" "~/Notes/people.org" "~/Notes/tiqets.org" "/Users/santiago/org/notes.org"))))
+    ("~/Notes/todo.org" "~/Notes/people.org" "~/Notes/tiqets.org" "/Users/santiago/org/notes.org")))
+ '(package-selected-packages (quote (ayu-theme))))
+
+;; (custom-set-faces
+;;  ;; custom-set-faces was added by Custom.
+;;  ;; If you edit it by hand, you could mess it up, so be careful.
+;;  ;; Your init file should contain only one such instance.
+;;  ;; If there is more than one, they won't work right.
+;;  '(mode-line ((t (:family "Iosevka Term" :height 0.9))))
+;;  '(mode-line-inactive ((t (:family "Iosevka Term" :height 0.9)))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(mode-line ((t (:family "Iosevka Term" :height 0.9))))
- '(mode-line-inactive ((t (:family "Iosevka Term" :height 0.9)))))
+ )
