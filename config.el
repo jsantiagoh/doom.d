@@ -27,8 +27,8 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-;; (setq doom-theme 'doom-gruvbox-light)
-(setq doom-theme 'doom-one-light)
+(setq doom-theme 'doom-gruvbox-light)
+;; (setq doom-theme 'doom-one-light)
 ;; (setq doom-theme 'zaiste)
 
 ;; If you use `org' and don't want your org files in the default location below,
@@ -37,7 +37,8 @@
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type 'relative)
+;; (setq display-line-numbers-type 'relative)
+(setq display-line-numbers-type 'nil)
 
 ;; Set bullets for ORG
 (setq org-superstar-headline-bullets-list '("❖" "⨳" "⟫" "⟩" "⁖" ))
@@ -46,6 +47,12 @@
 (add-hook 'org-mode-hook #'auto-save-visited-mode)
 
 (map! :leader :desc "Org Columns" "o c" #'org-columns)
+
+;; Add a timestamp when completing tasks
+(setq org-log-done t)
+
+;; Icons in treemacs are huge
+(setq all-the-icons-scale-factor 1.0)
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
@@ -72,17 +79,3 @@
    (quote
     ("~/Notes/todo.org" "~/Notes/people.org" "~/Notes/tiqets.org" "/Users/santiago/org/notes.org")))
  '(package-selected-packages (quote (ayu-theme))))
-
-;; (custom-set-faces
-;;  ;; custom-set-faces was added by Custom.
-;;  ;; If you edit it by hand, you could mess it up, so be careful.
-;;  ;; Your init file should contain only one such instance.
-;;  ;; If there is more than one, they won't work right.
-;;  '(mode-line ((t (:family "Iosevka Term" :height 0.9))))
-;;  '(mode-line-inactive ((t (:family "Iosevka Term" :height 0.9)))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
