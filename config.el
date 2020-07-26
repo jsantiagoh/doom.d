@@ -7,7 +7,7 @@
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
 (setq user-full-name "Santiago"
-      user-mail-address "jsantiagoh@gmail.com")
+      user-mail-address "santiago@tiqets.com")
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
@@ -21,27 +21,34 @@
 ;; font string. You generally only need these two:
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
-(setq doom-font (font-spec :family "Fira Code" :size 12 :weight 'regular)
-      doom-variable-pitch-font (font-spec :family "Fira Code" :size 12))
+;; (setq doom-font (font-spec :family "Iosevka" :size 14 :weight 'regular)
+;;       doom-variable-pitch-font (font-spec :family "Fira Sans" :size 14))
+
+(setq doom-font (font-spec :family "Iosevka SS05" :size 14 :weight 'regular)
+      doom-big-font (font-spec :family "Iosevka SS05" :size 16)
+      doom-variable-pitch-font (font-spec :family "Iosevka Aile" :size 14 :weight 'regular)  ;; font used also for zen mode
+      doom-serif-font (font-spec :family "Iosevka Aile" :size 14 :weight 'regular))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-gruvbox-light)
+;; (setq doom-theme 'doom-gruvbox-light)
 ;; (setq doom-theme 'doom-one-light)
-;; (setq doom-theme 'zaiste)
-
-;; If you use `org' and don't want your org files in the default location below,
-;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/Notes/")
+(setq doom-theme 'santiago)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 ;; (setq display-line-numbers-type 'relative)
 (setq display-line-numbers-type 'nil)
 
-;; Set bullets for ORG
-(setq org-superstar-headline-bullets-list '("❖" "⨳" "⟫" "⟩" "⁖" ))
+;; If you use `org' and don't want your org files in the default location below,
+;; change `org-directory'. It must be set before org loads!
+(setq
+ org-directory "~/Notes/"
+ org-agenda-files '("~/Notes/" "~/Notes/people/")
+ org-agenda-custom-commands '(("x" todo "TODO"))
+ org-superstar-headline-bullets-list '("❖" "⨳" "⟫" "⟩" "⟩" "⟩" "⟩" "⟩" "⟩" "⟩" "⟩" "⟩" "⟩" "⟩" )   ;; Bullets for org mode
+ )
 
 ;; Autosave org mode files
 (add-hook 'org-mode-hook #'auto-save-visited-mode)
@@ -70,12 +77,3 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(org-agenda-files
-   (quote
-    ("~/Notes/todo.org" "~/Notes/people.org" "~/Notes/tiqets.org" "/Users/santiago/org/notes.org")))
- '(package-selected-packages (quote (ayu-theme))))
