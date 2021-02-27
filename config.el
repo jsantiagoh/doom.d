@@ -24,10 +24,13 @@
 ;; (setq doom-font (font-spec :family "Iosevka" :size 14 :weight 'regular)
 ;;       doom-variable-pitch-font (font-spec :family "Fira Sans" :size 14))
 
-(setq doom-font (font-spec :family "Iosevka SS05" :size 14 :weight 'regular)
-      doom-big-font (font-spec :family "Iosevka SS05" :size 16)
-      doom-variable-pitch-font (font-spec :family "Iosevka Aile" :size 14 :weight 'regular)  ;; font used also for zen mode
+(setq doom-font (font-spec :family "Iosevka SS04" :size 14 :weight 'regular)
+      doom-big-font (font-spec :family "Iosevka SS04" :size 18)
+      doom-variable-pitch-font (font-spec :family "Iosevka Etoile" :size 14 :weight 'regular)  ;; font used also for zen mode
       doom-serif-font (font-spec :family "Iosevka Aile" :size 14 :weight 'regular))
+
+(setq ns-option-modifier 'meta
+      ns-right-option-modifier 'meta)
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -41,14 +44,46 @@
 ;; (setq display-line-numbers-type 'relative)
 (setq display-line-numbers-type 'nil)
 
+;; Set the jar path for plant uml
+(setq org-plantuml-jar-path "~/opt/plantuml.jar")
+
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq
  org-directory "~/Notes/"
- org-agenda-files '("~/Notes/" "~/Notes/people/")
+ org-agenda-files '("~/Notes/" "~/Notes/Tiqets" "~/Notes/Tiqets/people/")
  org-agenda-custom-commands '(("x" todo "TODO"))
- org-superstar-headline-bullets-list '("❖" "⨳" "⟫" "⟩" "⟩" "⟩" "⟩" "⟩" "⟩" "⟩" "⟩" "⟩" "⟩" "⟩" )   ;; Bullets for org mode
+ org-startup-folded t
  )
+;; Bullets for org mode
+(setq org-superstar-headline-bullets-list
+       '("❖" "⨳" "⟫" "⟩" "⟩" "⟩" "⟩" "⟩" "⟩" "⟩" "⟩" "⟩" "⟩" "⟩" ))
+
+(setq org-hide-emphasis-markers nil)
+
+(setq org-link-abbrev-alist '(("doom-repo" . "https://github.com/hlissner/doom-emacs/%s")
+                              ("wolfram" . "https://wolframalpha.com/input/?i=%s")
+                              ("wikipedia" . "https://en.wikipedia.org/wiki/%s")
+                              ("duckduckgo" . "https://duckduckgo.com/?q=%s")
+                              ("gmap" . "https://maps.google.com/maps?q=%s")
+                              ("gimages" . "https://google.com/images?q=%s")
+                              ("google" . "https://google.com/search?q=")
+                              ("youtube" . "https://youtube.com/watch?v=%s")
+                              ("github" . "https://github.com/%s")
+                              ("jira" . "https://tiqets.atlassian.net/browse/%s")))
+
+(setq org-capture-templates
+      '(("t" "Personal todo" entry (file+headline +org-capture-todo-file "Inbox") "* TODO %?\n%i\n%a" :prepend t)
+        ("n" "Personal notes" entry (file+headline +org-capture-notes-file "Inbox") "* %u %?\n%i\n%a" :prepend t)
+        ("j" "Journal" entry (file+olp+datetree +org-capture-journal-file) "* %U %?\n%i\n%a" :prepend t)
+        ("p" "Templates for projects")
+        ("pt" "Project-local todo" entry (file+headline +org-capture-project-todo-file "Inbox") "* TODO %?\n%i\n%a" :prepend t)
+        ("pn" "Project-local notes" entry (file+headline +org-capture-project-notes-file "Inbox") "* %U %?\n%i\n%a" :prepend t)
+        ("pc" "Project-local changelog" entry (file+headline +org-capture-project-changelog-file "Unreleased") "* %U %?\n%i\n%a" :prepend t)
+        ("o" "Centralized templates for projects")
+        ("ot" "Project todo" entry #'+org-capture-central-project-todo-file "* TODO %?\n %i\n %a" :heading "Tasks" :prepend nil)
+        ("on" "Project notes" entry #'+org-capture-central-project-notes-file "* %U %?\n %i\n %a" :heading "Notes" :prepend t)
+        ("oc" "Project changelog" entry #'+org-capture-central-project-changelog-file "* %U %?\n %i\n %a" :heading "Changelog" :prepend t)))
 
 ;; Autosave org mode files
 (add-hook 'org-mode-hook #'auto-save-visited-mode)
@@ -60,6 +95,13 @@
 
 ;; Icons in treemacs are huge
 (setq all-the-icons-scale-factor 1.0)
+
+;; Yasnippet directory
+(setq yas-snippet-dirs (append yas-snippet-dirs
+                               '("~/.doom.d/snippets")))
+
+;; Org Roam configuration
+(setq org-roam-directory "~/Notes")
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;

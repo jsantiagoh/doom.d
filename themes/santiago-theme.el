@@ -105,7 +105,7 @@
    (mmm-default-submode-face :background base1)
 
    (org-block            :background base0)
-   (org-level-1          :foreground base8 :weight 'bold :height 1.3)
+   (org-level-1          :foreground base8 :weight 'bold :height 1.2)
    (org-level-2          :foreground base6 :weight 'bold :height 1.1)
    (org-level-3          :foreground base5 :bold bold :height 1.0)
    (org-level-4          :foreground base4 :bold bold :height 1.0)
