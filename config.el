@@ -24,10 +24,16 @@
 ;; (setq doom-font (font-spec :family "Iosevka" :size 14 :weight 'regular)
 ;;       doom-variable-pitch-font (font-spec :family "Fira Sans" :size 14))
 
-(setq doom-font (font-spec :family "Iosevka SS04" :size 14 :weight 'regular)
-      doom-big-font (font-spec :family "Iosevka SS04" :size 18)
-      doom-variable-pitch-font (font-spec :family "Iosevka Etoile" :size 14 :weight 'regular)  ;; font used also for zen mode
-      doom-serif-font (font-spec :family "Iosevka Aile" :size 14 :weight 'regular))
+(setq doom-font (font-spec :family "Iosevka SS04" :size 16 :weight 'regular)
+      doom-big-font (font-spec :family "Iosevka SS04" :size 24)
+      doom-variable-pitch-font (font-spec :family "Iosevka Aile" :size 16 :weight 'regular)  ;; font used also for zen mode
+      doom-serif-font (font-spec :family "Iosevka Aile" :size 16 :weight 'regular))
+
+(setq doom-leader-key "SPC"
+      doom-localleader-key ","
+      doom-leader-alt-key "M-SPC"
+      doom-localleader-alt-key "M-SPC m")
+
 
 (setq ns-option-modifier 'meta
       ns-right-option-modifier 'meta)
@@ -35,29 +41,63 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-;; (setq doom-theme 'doom-gruvbox-light)
+;; (setq doom-theme 'santiago)
+(setq doom-theme 'doom-gruvbox-light)
 ;; (setq doom-theme 'doom-one-light)
-(setq doom-theme 'santiago)
+;; (setq doom-theme 'doom-flatwhite)
 
-;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 ;; (setq display-line-numbers-type 'relative)
 (setq display-line-numbers-type 'nil)
 
+;; Show previews when switching buffers
+(setq +ivy-buffer-preview t)
+
+;; Icons in treemacs are huge
+(setq all-the-icons-scale-factor 1.0)
+
+;; Org mode configuration
+;; --------------------------------------------------------------------------------
 ;; Set the jar path for plant uml
 (setq org-plantuml-jar-path "~/opt/plantuml.jar")
+
+;; The directory where attachments are stored when ‘ID’ is used as method.
+(setq org-attach-id-dir "~/Notes/Tiqets/attachments")
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq
- org-directory "~/Notes/"
- org-agenda-files '("~/Notes/" "~/Notes/Tiqets" "~/Notes/Tiqets/people/")
- org-agenda-custom-commands '(("x" todo "TODO"))
- org-startup-folded t
+ org-directory "~/Notes/Tiqets"
+ org-agenda-files '("~/Notes/Tiqets" "~/Notes/Tiqets/people/")
+ org-download-image-dir "~/Notes/Tiqets/img"
  )
+
+;; Yasnippet directory
+(setq yas-snippet-dirs (append yas-snippet-dirs
+                               '("~/.doom.d/snippets")))
+
+;; Org Roam configuration
+(setq org-roam-directory "~/Notes/Tiqets")
+
+(after! org
+  (setq org-fontify-quote-and-verse-blocks t
+        org-startup-folded t
+        org-ellipsis " …"
+        org-capture-templates
+        '(("t" "Todo" entry (file+headline +org-capture-todo-file "Inbox") "* TODO %?\n%i\n%a" :prepend t)
+          ("n" "Notes" entry (file+headline +org-capture-notes-file "Inbox") "* %u %?\n%i\n%a" :prepend t)
+          ("m" "Meeting" entry (file+headline "~/Notes/Tiqets/meetings.org" "Meetings") "* %U %?\nParticipants:\n\n** Actions")
+          ("j" "Journal" entry (file+olp+datetree +org-capture-journal-file) "* %U %?\n%i\n%a" :prepend t))
+        ))
+
+(setq org-agenda-custom-commands
+      '(("c" "Simple agenda view"
+         ((agenda "")
+          (alltodo "")))))
+
 ;; Bullets for org mode
 (setq org-superstar-headline-bullets-list
-       '("❖" "⨳" "⟫" "⟩" "⟩" "⟩" "⟩" "⟩" "⟩" "⟩" "⟩" "⟩" "⟩" "⟩" ))
+       '("❖" "⨳" "⟫" "⟩" "⁖" "⁖" "⁖" "⁖" "⁖" "⁖" "⁖" "⁖" "⁖" "⁖" ))
 
 (setq org-hide-emphasis-markers nil)
 
@@ -72,36 +112,37 @@
                               ("github" . "https://github.com/%s")
                               ("jira" . "https://tiqets.atlassian.net/browse/%s")))
 
-(setq org-capture-templates
-      '(("t" "Personal todo" entry (file+headline +org-capture-todo-file "Inbox") "* TODO %?\n%i\n%a" :prepend t)
-        ("n" "Personal notes" entry (file+headline +org-capture-notes-file "Inbox") "* %u %?\n%i\n%a" :prepend t)
-        ("j" "Journal" entry (file+olp+datetree +org-capture-journal-file) "* %U %?\n%i\n%a" :prepend t)
-        ("p" "Templates for projects")
-        ("pt" "Project-local todo" entry (file+headline +org-capture-project-todo-file "Inbox") "* TODO %?\n%i\n%a" :prepend t)
-        ("pn" "Project-local notes" entry (file+headline +org-capture-project-notes-file "Inbox") "* %U %?\n%i\n%a" :prepend t)
-        ("pc" "Project-local changelog" entry (file+headline +org-capture-project-changelog-file "Unreleased") "* %U %?\n%i\n%a" :prepend t)
-        ("o" "Centralized templates for projects")
-        ("ot" "Project todo" entry #'+org-capture-central-project-todo-file "* TODO %?\n %i\n %a" :heading "Tasks" :prepend nil)
-        ("on" "Project notes" entry #'+org-capture-central-project-notes-file "* %U %?\n %i\n %a" :heading "Notes" :prepend t)
-        ("oc" "Project changelog" entry #'+org-capture-central-project-changelog-file "* %U %?\n %i\n %a" :heading "Changelog" :prepend t)))
+
+
+;; (setq org-capture-templates
+;;       '(("t" "Tiqets todo" entry (file+headline +org-capture-todo-file "Inbox") "* TODO %?\n%i\n%a" :prepend t)
+;;         ("n" "Tiqets notes" entry (file+headline +org-capture-notes-file "Inbox") "* %u %?\n%i\n%a" :prepend t)
+;;         ("j" "Journal" entry
+;;          (file+olp+datetree +org-capture-journal-file)
+;;          "* %U %?\n%i\n%a" :prepend t)
+;;         ("p" "Templates for projects")
+;;         ("pt" "Project-local todo" entry (file+headline +org-capture-project-todo-file "Inbox") "* TODO %?\n%i\n%a" :prepend t)
+;;         ("pn" "Project-local notes" entry (file+headline +org-capture-project-notes-file "Inbox") "* %U %?\n%i\n%a" :prepend t)
+;;         ("pc" "Project-local changelog" entry (file+headline +org-capture-project-changelog-file "Unreleased") "* %U %?\n%i\n%a" :prepend t)
+;;         ("o" "Centralized templates for projects")
+;;         ("ot" "Project todo" entry #'+org-capture-central-project-todo-file "* TODO %?\n %i\n %a" :heading "Tasks" :prepend nil)
+;;         ("on" "Project notes" entry #'+org-capture-central-project-notes-file "* %U %?\n %i\n %a" :heading "Notes" :prepend t)
+;;         ("oc" "Project changelog" entry #'+org-capture-central-project-changelog-file "* %U %?\n %i\n %a" :heading "Changelog" :prepend t)))
 
 ;; Autosave org mode files
 (add-hook 'org-mode-hook #'auto-save-visited-mode)
+(add-hook 'org-mode-hook #'+org-pretty-mode)
+(add-hook 'org-mode-hook #'mixed-pitch-mode)
+(add-hook 'org-mode-hook #'org-appear-mode)
 
-(map! :leader :desc "Org Columns" "o c" #'org-columns)
+(map! :leader
+      :desc "Org Columns" "o c" #'org-columns)
+(map! :leader
+      :desc "Org Capture"           "x" #'org-capture
+      :desc "Pop up scratch buffer" "X" #'doom/open-scratch-buffer)
 
 ;; Add a timestamp when completing tasks
 (setq org-log-done t)
-
-;; Icons in treemacs are huge
-(setq all-the-icons-scale-factor 1.0)
-
-;; Yasnippet directory
-(setq yas-snippet-dirs (append yas-snippet-dirs
-                               '("~/.doom.d/snippets")))
-
-;; Org Roam configuration
-(setq org-roam-directory "~/Notes")
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
