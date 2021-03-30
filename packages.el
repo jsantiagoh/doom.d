@@ -53,5 +53,11 @@
 ;;   :recipe (:host github :repo "skyler544/doom-nano-testing"))
 
 
-(package! org-appear :recipe (:host github :repo "awth13/org-appear")
+(package! org-appear
+  :recipe (:host github :repo "awth13/org-appear")
   :pin "0b3b029d5851c77ee792727b280f062eaf2c22c7")
+
+(package! org-fancy-priorities
+  :disable t)
+
+(package! org-super-agenda :pin "f5e80e4d0d...")

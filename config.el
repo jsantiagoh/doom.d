@@ -42,8 +42,8 @@
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
 ;; (setq doom-theme 'santiago)
-(setq doom-theme 'doom-gruvbox-light)
-;; (setq doom-theme 'doom-one-light)
+;; (setq doom-theme 'doom-gruvbox-light)
+(setq doom-theme 'doom-ayu-light)
 ;; (setq doom-theme 'doom-flatwhite)
 
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -56,48 +56,84 @@
 ;; Icons in treemacs are huge
 (setq all-the-icons-scale-factor 1.0)
 
+;; Yasnippet directory
+(setq yas-snippet-dirs (append yas-snippet-dirs
+                               '("~/.doom.d/snippets")))
+
 ;; Org mode configuration
 ;; --------------------------------------------------------------------------------
 ;; Set the jar path for plant uml
 (setq org-plantuml-jar-path "~/opt/plantuml.jar")
 
-;; The directory where attachments are stored when ‘ID’ is used as method.
-(setq org-attach-id-dir "~/Notes/Tiqets/attachments")
 
-;; If you use `org' and don't want your org files in the default location below,
-;; change `org-directory'. It must be set before org loads!
-(setq
- org-directory "~/Notes/Tiqets"
- org-agenda-files '("~/Notes/Tiqets" "~/Notes/Tiqets/people/")
- org-download-image-dir "~/Notes/Tiqets/img"
- )
-
-;; Yasnippet directory
-(setq yas-snippet-dirs (append yas-snippet-dirs
-                               '("~/.doom.d/snippets")))
-
-;; Org Roam configuration
-(setq org-roam-directory "~/Notes/Tiqets")
-
+(let ((default-directory "~/Notes/"))
+  (setq org-directory (expand-file-name ""))
+  (setq org-download-image-dir (expand-file-name "img"))
+  (setq san-capture-meetings-file (expand-file-name "Tiqets/meetings.org"))
+  (setq org-attach-id-dir (expand-file-name "attachments")) ;; The directory where attachments are stored when ‘ID’ is used as method.
+  (setq org-mobile-directory (expand-file-name "mobile/"))  ;; Org Mobile
+  (setq org-mobile-inbox-for-pull (expand-file-name "mobile/from-mobile.org"))
+  (setq org-agenda-files (list (expand-file-name "")
+                            (expand-file-name "Tiqets"))))
 (after! org
   (setq org-fontify-quote-and-verse-blocks t
         org-startup-folded t
-        org-ellipsis " …"
+        org-ellipsis " "
         org-capture-templates
         '(("t" "Todo" entry (file+headline +org-capture-todo-file "Inbox") "* TODO %?\n%i\n%a" :prepend t)
           ("n" "Notes" entry (file+headline +org-capture-notes-file "Inbox") "* %u %?\n%i\n%a" :prepend t)
-          ("m" "Meeting" entry (file+headline "~/Notes/Tiqets/meetings.org" "Meetings") "* %U %?\nParticipants:\n\n** Actions")
-          ("j" "Journal" entry (file+olp+datetree +org-capture-journal-file) "* %U %?\n%i\n%a" :prepend t))
-        ))
+          ("m" "Meeting" entry (file+headline san-capture-meetings-file "Meetings") "* %U %?\nParticipants:\n\n** Actions")
+          ("j" "Journal" entry (file+olp+datetree +org-capture-journal-file) "* %U %?\n%i\n%a" :prepend t))))
+
+
+;; Org Agenda configuration
+;; taken from https://github.com/tecosaur/emacs-config
+(use-package! org-super-agenda
+  :commands (org-super-agenda-mode))
+
+(after! org-agenda
+  (org-super-agenda-mode))
+
+(setq org-agenda-skip-scheduled-if-done t
+      org-agenda-skip-deadline-if-done t
+      org-agenda-include-deadlines t
+      org-agenda-block-separator nil
+      org-agenda-tags-column 100 ;; from testing this seems to be a good value
+      org-agenda-compact-blocks t)
 
 (setq org-agenda-custom-commands
-      '(("c" "Simple agenda view"
-         ((agenda "")
-          (alltodo "")))))
+      '(("o" "Overview"
+         ((agenda "" ((org-agenda-span 'day)
+                      (org-super-agenda-groups
+                       '((:name "Today"
+                          :time-grid t
+                          :date today
+                          :todo "TODAY"
+                          :scheduled today
+                          :order 1)))))
+          (alltodo "" ((org-agenda-overriding-header "")
+                       (org-super-agenda-groups
+                        '((:name "Next to do"
+                           :todo "NEXT"
+                           :order 1)
+                          (:name "Important"
+                           :tag "Important"
+                           :priority "A"
+                           :order 6)
+                          (:name "Due Today"
+                           :deadline today
+                           :order 2)
+                          (:name "Due Soon"
+                           :deadline future
+                           :order 8)
+                          (:name "Overdue"
+                           :deadline past
+                           :face error
+                           :order 7)))))))))
 
 ;; Bullets for org mode
 (setq org-superstar-headline-bullets-list
-       '("❖" "⨳" "⟫" "⟩" "⁖" "⁖" "⁖" "⁖" "⁖" "⁖" "⁖" "⁖" "⁖" "⁖" ))
+      '("❖" "⨳" "⟫" "⟩" "⁖" "⁖" "⁖" "⁖" "⁖" "⁖" "⁖" "⁖" "⁖" "⁖" ))
 
 (setq org-hide-emphasis-markers nil)
 
@@ -111,23 +147,6 @@
                               ("youtube" . "https://youtube.com/watch?v=%s")
                               ("github" . "https://github.com/%s")
                               ("jira" . "https://tiqets.atlassian.net/browse/%s")))
-
-
-
-;; (setq org-capture-templates
-;;       '(("t" "Tiqets todo" entry (file+headline +org-capture-todo-file "Inbox") "* TODO %?\n%i\n%a" :prepend t)
-;;         ("n" "Tiqets notes" entry (file+headline +org-capture-notes-file "Inbox") "* %u %?\n%i\n%a" :prepend t)
-;;         ("j" "Journal" entry
-;;          (file+olp+datetree +org-capture-journal-file)
-;;          "* %U %?\n%i\n%a" :prepend t)
-;;         ("p" "Templates for projects")
-;;         ("pt" "Project-local todo" entry (file+headline +org-capture-project-todo-file "Inbox") "* TODO %?\n%i\n%a" :prepend t)
-;;         ("pn" "Project-local notes" entry (file+headline +org-capture-project-notes-file "Inbox") "* %U %?\n%i\n%a" :prepend t)
-;;         ("pc" "Project-local changelog" entry (file+headline +org-capture-project-changelog-file "Unreleased") "* %U %?\n%i\n%a" :prepend t)
-;;         ("o" "Centralized templates for projects")
-;;         ("ot" "Project todo" entry #'+org-capture-central-project-todo-file "* TODO %?\n %i\n %a" :heading "Tasks" :prepend nil)
-;;         ("on" "Project notes" entry #'+org-capture-central-project-notes-file "* %U %?\n %i\n %a" :heading "Notes" :prepend t)
-;;         ("oc" "Project changelog" entry #'+org-capture-central-project-changelog-file "* %U %?\n %i\n %a" :heading "Changelog" :prepend t)))
 
 ;; Autosave org mode files
 (add-hook 'org-mode-hook #'auto-save-visited-mode)
