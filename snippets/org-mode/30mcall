@@ -1,0 +1,29 @@
+# -*- mode: snippet -*-
+# name: 30m call
+# key: 3mcall
+# condition: t
+# --
+$0
+*Purpose of this call*
+- Short talk to get to know each other, see if we have a good fit
+- Room for you to ask any questions
+- Explain how the interview process is at Tiqets
+
+*Me: My Introduction and Tiqets*
+Santiago Hirschfeld, argentinian, 8y in the Netherlands and 2 1/2 at Tiqets
+I'm the /Head of Development/ at Tiqets, responsible for:
+- The Technical direction of the company
+- The well-being of every engineer
+*They: Introduction*
+*Me: Some questions*
+- What are you looking for?
+- What's your ideal workplace?
+- What have you done lately that you are very proud of?
+- What's the last recent mistake you've made?
+- [Platform] Current Linux Distribution
+*Me: How we are structured at Tiqets*
+30-40 Engineers with different roles: Backend, Frontend, Platform, Mobile
+7 Teams with a PO, TL, Engineer
+*Me: Technology stack*
+*They: Questions*
+*Me: Interview Process*
