@@ -106,6 +106,9 @@
 (setq org-superstar-headline-bullets-list
        '("❖" "⨳" "⟫" "⟩" "⁖" "⁖" "⁖" "⁖" "⁖" "⁖" "⁖" "⁖" "⁖" "⁖" ))
 
+;; Fancy priorities
+(setq org-fancy-priorities-list '("🅐" "🅑" "Ⓒ" "Ⓓ"))
+
 (setq org-hide-emphasis-markers nil)
 
 (setq org-link-abbrev-alist '(("doom-repo" . "https://github.com/hlissner/doom-emacs/%s")
