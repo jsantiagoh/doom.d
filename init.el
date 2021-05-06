@@ -19,7 +19,7 @@
        ;;japanese
 
        :completion
-       (company +childframe)           ; the ultimate code completion backend
+       (company)           ; the ultimate code completion backend
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
        (ivy                     ; a search engine for love and life
@@ -67,6 +67,7 @@
 
        :emacs
        (dired             ; making dired pretty [functional]
+        +ranger           ; Make dired more like ranger
         +icons)            ; Enable fancy icons
        electric          ; smarter, keyword-based electric-indent
        ;;ibuffer         ; interactive buffer management

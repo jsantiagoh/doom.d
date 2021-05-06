@@ -61,3 +61,7 @@
   :disable t)
 
 (package! org-super-agenda :pin "f5e80e4d0d...")
+
+;; HTTP REST client tool for emacs
+;; https://github.com/pashky/restclient.el
+(package! restclient)

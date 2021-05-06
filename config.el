@@ -24,10 +24,10 @@
 ;; (setq doom-font (font-spec :family "Iosevka" :size 14 :weight 'regular)
 ;;       doom-variable-pitch-font (font-spec :family "Fira Sans" :size 14))
 
-(setq doom-font (font-spec :family "Iosevka SS04" :size 16 :weight 'regular)
+(setq doom-font (font-spec :family "Iosevka SS04" :size 15 :weight 'regular)
       doom-big-font (font-spec :family "Iosevka SS04" :size 24)
-      doom-variable-pitch-font (font-spec :family "Iosevka Aile" :size 16 :weight 'regular)  ;; font used also for zen mode
-      doom-serif-font (font-spec :family "Iosevka Aile" :size 16 :weight 'regular))
+      doom-variable-pitch-font (font-spec :family "Iosevka Etoile" :size 15 :weight 'light)  ;; font used also for zen mode
+      doom-serif-font (font-spec :family "Iosevka Aile" :size 15 :weight 'regular))
 
 (setq doom-leader-key "SPC"
       doom-localleader-key ","
@@ -42,9 +42,7 @@
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
 ;; (setq doom-theme 'santiago)
-;; (setq doom-theme 'doom-gruvbox-light)
-(setq doom-theme 'doom-ayu-light)
-;; (setq doom-theme 'doom-flatwhite)
+(setq doom-theme 'doom-gruvbox)
 
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 ;; (setq display-line-numbers-type 'relative)
