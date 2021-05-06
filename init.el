@@ -82,7 +82,7 @@
 
        :checkers
        syntax              ; tasing you for every semicolon you forget
-       (spell +aspell)             ; tasing you for misspelling mispelling
+       (spell +hunspell)             ; tasing you for misspelling mispelling
        ;;grammar           ; tasing grammar mistake every you make
 
        :tools
@@ -186,7 +186,7 @@
        ;;twitter           ; twitter client https://twitter.com/vnought
 
        :os
-       macos             ; MacOS-specific commands
+       ;; macos             ; MacOS-specific commands
 
        :config
        ;;literate

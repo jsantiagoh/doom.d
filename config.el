@@ -3,6 +3,7 @@
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
 
+(menu-bar-mode -1)
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
@@ -19,15 +20,19 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
-;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
+ ;; (setq doom-font (font-spec :family "monospace" :size 16 :weight 'semi-light)
+ ;;       doom-variable-pitch-font (font-spec :family "sans" :size 17))
 ;; (setq doom-font (font-spec :family "Iosevka" :size 14 :weight 'regular)
 ;;       doom-variable-pitch-font (font-spec :family "Fira Sans" :size 14))
 
-(setq doom-font (font-spec :family "Iosevka SS04" :size 15 :weight 'regular)
-      doom-big-font (font-spec :family "Iosevka SS04" :size 24)
-      doom-variable-pitch-font (font-spec :family "Iosevka Etoile" :size 15 :weight 'light)  ;; font used also for zen mode
-      doom-serif-font (font-spec :family "Iosevka Aile" :size 15 :weight 'regular))
+;; (setq doom-font (font-spec :family "Iosevka SS04" :size 18 :weight 'regular)
+;;      doom-big-font (font-spec :family "Iosevka SS04" :size 26)
+;;      doom-variable-pitch-font (font-spec :family "Iosevka Aile" :size 18 :weight 'regular)  ;; font used also for zen mode
+;;      doom-serif-font (font-spec :family "Iosevka Aile" :size 18 :weight 'regular))
+(setq doom-font (font-spec :family "Iosevka SS04" :size 18 :weight 'regular)
+     doom-big-font (font-spec :family "Iosevka SS04" :size 26)
+     doom-variable-pitch-font (font-spec :family "Iosevka Etoile" :size 18 :weight 'light)  ;; font used also for zen mode
+     doom-serif-font (font-spec :family "Iosevka Aile" :size 18 :weight 'regular))
 
 (setq doom-leader-key "SPC"
       doom-localleader-key ","
@@ -132,6 +137,9 @@
 ;; Bullets for org mode
 (setq org-superstar-headline-bullets-list
       '("❖" "⨳" "⟫" "⟩" "⁖" "⁖" "⁖" "⁖" "⁖" "⁖" "⁖" "⁖" "⁖" "⁖" ))
+
+;; Fancy priorities
+(setq org-fancy-priorities-list '("🅐" "🅑" "Ⓒ" "Ⓓ"))
 
 (setq org-hide-emphasis-markers nil)
 
